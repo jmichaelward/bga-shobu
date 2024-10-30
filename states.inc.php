@@ -48,6 +48,9 @@
 */
 
 //    !! It is not a good idea to modify this file when a game is running !!
+const PASSIVE_MOVE = 2;
+const AGGRESSIVE_MOVE = 10;
+const NEXT_PLAYER_TURN = 50;
 
 
 $machinestates = [
@@ -60,7 +63,7 @@ $machinestates = [
         "transitions" => ["" => 2]
     ),
 
-    2 => [
+    PASSIVE_MOVE => [
         "name" => "makePassiveMove",
         "description" => '',
         "descriptionmyturn" => '',
@@ -69,10 +72,10 @@ $machinestates = [
         "possibleactions" => [
             "selectPassivePiece",
         ],
-        "transitions" => ["movePassiveStone" => 10, "endGame" => 99]
+        "transitions" => ["movePassiveStone" => AGGRESSIVE_MOVE, "endGame" => 99]
     ],
 
-    10 => [
+    AGGRESSIVE_MOVE => [
         "name" => "makeAggressiveMove",
         "description" => '',
         "descriptionmyturn" => '',
@@ -81,11 +84,10 @@ $machinestates = [
         "possibleactions" => [
           "selectAggressivePiece"
         ],
-        "transitions" => ["moveAggressiveStone" => 50, "endGame" => 99]
+        "transitions" => ["moveAggressiveStone" => NEXT_PLAYER_TURN, "endGame" => 99]
     ],
 
-
-    50 => [
+    NEXT_PLAYER_TURN => [
         "name" => "nextPlayer",
         "description" => '',
         "type" => "game",
