@@ -48,9 +48,19 @@
 */
 
 //    !! It is not a good idea to modify this file when a game is running !!
-const PASSIVE_MOVE = 2;
-const AGGRESSIVE_MOVE = 10;
-const NEXT_PLAYER_TURN = 50;
+
+/**
+ * Define constants for state IDs.
+ *
+ * First, check that STATE_GAME_END is defined to prevent duplicate definition as this file
+ * gets loaded multiple times by BGA.
+ */
+if (!defined('STATE_GAME_END')) {
+  define('PASSIVE_MOVE', 2);
+  define('AGGRESSIVE_MOVE', 10);
+  define('NEXT_PLAYER_TURN', 50);
+  define('STATE_GAME_END', 99);
+}
 
 
 $machinestates = [
@@ -72,7 +82,7 @@ $machinestates = [
         "possibleactions" => [
             "selectPassivePiece",
         ],
-        "transitions" => ["movePassiveStone" => AGGRESSIVE_MOVE, "endGame" => 99]
+        "transitions" => ["movePassiveStone" => AGGRESSIVE_MOVE, "endGame" => STATE_GAME_END]
     ],
 
     AGGRESSIVE_MOVE => [
@@ -84,7 +94,7 @@ $machinestates = [
         "possibleactions" => [
           "selectAggressivePiece"
         ],
-        "transitions" => ["moveAggressiveStone" => NEXT_PLAYER_TURN, "endGame" => 99]
+        "transitions" => ["moveAggressiveStone" => NEXT_PLAYER_TURN, "endGame" => STATE_GAME_END]
     ],
 
     NEXT_PLAYER_TURN => [
@@ -93,12 +103,12 @@ $machinestates = [
         "type" => "game",
         "action" => "stNextPlayer",
         "updateGameProgression" => true,
-        "transitions" => ["endGame" => 99, "nextPlayer" => 2]
+        "transitions" => ["endGame" => STATE_GAME_END, "nextPlayer" => 2]
     ],
 
     // Final state.
     // Please do not modify (and do not overload action/args methods).
-    99 => [
+    STATE_GAME_END => [
         "name" => "gameEnd",
         "description" => clienttranslate("End of game"),
         "type" => "manager",
