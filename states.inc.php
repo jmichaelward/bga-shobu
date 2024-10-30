@@ -51,9 +51,7 @@
 
 
 $machinestates = [
-
     // The initial state. Please do not modify.
-
     1 => array(
         "name" => "gameSetup",
         "description" => "",
@@ -62,23 +60,32 @@ $machinestates = [
         "transitions" => ["" => 2]
     ),
 
-    // Note: ID=2 => your first state
-
     2 => [
-        "name" => "playerTurn",
-        "description" => clienttranslate('${actplayer} must play a card or pass'),
-        "descriptionmyturn" => clienttranslate('${you} must play a card or pass'),
+        "name" => "makePassiveMove",
+        "description" => '',
+        "descriptionmyturn" => '',
         "type" => "activeplayer",
         "args" => "argPlayerTurn",
         "possibleactions" => [
-            // these actions are called from the front with bgaPerformAction, and matched to the function on the game.php file
-            "actPlayCard", 
-            "actPass",
+            "selectPassivePiece",
         ],
-        "transitions" => ["playCard" => 3, "pass" => 3]
+        "transitions" => ["movePassiveStone" => 10, "endGame" => 99]
     ],
 
-    3 => [
+    10 => [
+        "name" => "makeAggressiveMove",
+        "description" => '',
+        "descriptionmyturn" => '',
+        "type" => "activeplayer",
+        "args" => "argPlayerTurn",
+        "possibleactions" => [
+          "selectAggressivePiece"
+        ],
+        "transitions" => ["moveAggressiveStone" => 50, "endGame" => 99]
+    ],
+
+
+    50 => [
         "name" => "nextPlayer",
         "description" => '',
         "type" => "game",
@@ -96,8 +103,4 @@ $machinestates = [
         "action" => "stGameEnd",
         "args" => "argGameEnd"
     ],
-
 ];
-
-
-
