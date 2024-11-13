@@ -48,23 +48,63 @@ function (dojo, declare) {
         {
             console.log( "Starting game setup" );
 
-            // Example to add a div on the game area
-            document.getElementById('game_play_area').insertAdjacentHTML('beforeend', `
-                <div id="player-tables"></div>
+			const boards = 4;
+			const boardGrid = 16;
+			const defaultBoardState = [
+				1,1,1,1,
+				0,0,0,0,
+				0,0,0,0,
+				2,2,2,2,
+			];
+
+			// TODO: assign all the board states.
+			const board1State = defaultBoardState.slice();
+			const board2State = defaultBoardState.slice();
+			const board3State = defaultBoardState.slice();
+			const board4State = defaultBoardState.slice();
+
+
+			// Example to add a div on the game area
+			console.log('Add board to game area');
+			document.getElementById('game_play_area').insertAdjacentHTML('beforeend', `
+                <div id="boards"></div>
             `);
+
+			const renderBoard = (board, boardState) => {
+
+				let html = `<div id="${board}" class="board">`;
+
+				boardState.forEach((value, index) => {
+					let row = Math.floor(index / 4);
+					let col = index % 4;
+					html += `<div class="square piece-${value}" data-js-piece="${value}" data-js-x="${col}" data-js-y="${row}"><span class="stone-${value}">${value}</span></div>`;
+				});
+
+				html += '</div>';
+
+				document.getElementById('boards').insertAdjacentHTML('beforeend', html);
+			}
+
+			console.log('Render boards');
+			renderBoard('board-1', board1State);
+			renderBoard('board-2', board2State);
+			renderBoard('board-3', board3State);
+			renderBoard('board-4', board4State);
+
+
             
             // Setting up player boards
-            Object.values(gamedatas.players).forEach(player => {
-                // TODO: Setting up players boards if needed
-
-                // example of adding a div for each player
-                document.getElementById('player-tables').insertAdjacentHTML('beforeend', `
-                    <div id="player-table-${player.id}">
-                        <strong>${player.name}</strong>
-                        <div>Player zone content goes here</div>
-                    </div>
-                `);
-            });
+            // Object.values(gamedatas.players).forEach(player => {
+            //     // TODO: Setting up players boards if needed
+			//
+            //     // example of adding a div for each player
+            //     document.getElementById('player-tables').insertAdjacentHTML('beforeend', `
+            //         <div id="player-table-${player.id}">
+            //             <strong>${player.name}</strong>
+            //
+            //         </div>
+            //     `);
+            // });
             
             // TODO: Set up your game interface here, according to "gamedatas"
             
