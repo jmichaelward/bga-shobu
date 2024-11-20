@@ -14,7 +14,7 @@ jobs:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: sftp://1.studio.boardgamearena.com/shobunew
+          server: 1.studio.boardgamearena.com/shobunew
           username: ${{ secrets.BGA_USERNAME }}
           password: ${{ secrets.BGA_FTP_PASSWORD }}
           exclude: |
@@ -23,3 +23,4 @@ jobs:
             .gitignore
             composer.*
             **/vendor/**
+g
