@@ -63,27 +63,24 @@ function (dojo, declare) {
 			const board3State = defaultBoardState.slice();
 			const board4State = defaultBoardState.slice();
 
-
-			// Example to add a div on the game area
-			console.log('Add board to game area');
-			document.getElementById('game_play_area').insertAdjacentHTML('beforeend', `
-                <div id="boards"></div>
-            `);
-
 			const renderBoard = (board, boardState) => {
 
-				let html = `<div id="${board}" class="board">`;
+				let html = '';
 
 				boardState.forEach((value, index) => {
 					let row = Math.floor(index / 4);
 					let col = index % 4;
-					html += `<div class="square piece-${value}" data-js-piece="${value}" data-js-x="${col}" data-js-y="${row}"><span class="stone-${value}">${value}</span></div>`;
+
+					html += this.format_block('jstpl_piece', {
+						'number': value,
+						'col': col,
+						'row': row,
+					});
 				});
 
-				html += '</div>';
-
-				document.getElementById('boards').insertAdjacentHTML('beforeend', html);
+				document.getElementById(board).innerHTML += html;
 			}
+
 
 			console.log('Render boards');
 			renderBoard('board-1', board1State);
