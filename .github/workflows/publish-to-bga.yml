@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - develop
+name: Publish Shobu to BGA
+jobs:
+  web-deploy:
+    name: Deploy to BGA
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v4
+
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: sftp://1.studio.boardgamearena.com/shobunew
+          username: ${{ secrets.BGA_USERNAME }}
+          password: ${{ secrets.BGA_FTP_PASSWORD }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .gitignore
+            composer.*
+            **/vendor/**
