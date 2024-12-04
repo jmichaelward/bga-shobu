@@ -69,43 +69,70 @@
 
 #boards{
 	padding: 20px;
-	border: 5px solid black;
-
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-gap: 20px;
-	max-width: 750px
+	width: 750px;
+	height: 750px;
+	position: relative;
+	margin: 2rem auto;
 }
 
-#board-1, #board-2, #board-3, #board-4 {
+.board {
 	border: 1px solid black;
-
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-auto-rows: 50px;
+	height: 365px;
+	position: absolute;
+	width: 365px;
 }
 
+#board_1{
+	top: 0;
+	left: 0;
+}
+
+#board_2{
+	top: 0;
+	left: 385px;
+}
+
+#board_3{
+	top: 385px;
+	left: 0;
+}
+
+#board_4{
+	top: 385px;
+	left: 385px;
+}
+
+.board-light .square {
+	background-color: #ce9651;
+}
+
+.board-dark .square {
+	background-color: #9a601a;
+}
 .square{
-	border: 1px solid black;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
+	position: absolute;
+	width: 81.5px;
+	height: 81.5px;
+	margin: 5px
+}
+
+.stone{
+	position: absolute;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .stone-1{
 	background-color: black;
-	border-radius: 50%;
-	width: 30px;
-	height: 30px;
 	color: black;
 }
 
 .stone-2{
 	background-color: white;
-	border-radius: 50%;
-	width: 30px;
-	height: 30px;
 	color: white;
 }
 
