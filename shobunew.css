@@ -68,7 +68,7 @@
 */
 
 #boards{
-	padding: 20px;
+	padding: 0px;
 	width: 750px;
 	height: 750px;
 	position: relative;
@@ -76,44 +76,48 @@
 }
 
 .board {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	height: 365px;
 	position: absolute;
 	width: 365px;
 }
 
-#board_1{
+#board_1, .board_1{
 	top: 0;
 	left: 0;
 }
 
-#board_2{
+#board_2, .board_2{
 	top: 0;
 	left: 385px;
 }
 
-#board_3{
+#board_3, .board_3{
 	top: 385px;
 	left: 0;
 }
 
-#board_4{
+#board_4, .board_4{
 	top: 385px;
 	left: 385px;
 }
 
-.board-light .square {
+.board-light {
 	background-color: #ce9651;
 }
 
-.board-dark .square {
+.board-dark {
 	background-color: #9a601a;
 }
+
+.squares,.stones {
+	position: absolute;
+}
+
 .square{
 	position: absolute;
 	width: 81.5px;
 	height: 81.5px;
-	margin: 5px
 }
 
 .stone{
@@ -121,9 +125,7 @@
 	border-radius: 50%;
 	width: 30px;
 	height: 30px;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
+	z-index: 999;
 }
 
 .stone-1{

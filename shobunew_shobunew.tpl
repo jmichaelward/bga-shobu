@@ -34,16 +34,18 @@
 var jstpl_some_game_item='<div class="my_game_item" id="my_game_item_${MY_ITEM_ID}"></div>';
 
 */
-const jstpl_piece = '<div id="${board_number}_square_${row}_${col}"  class="square piece-${number}" style="top:${top}px; left:${left}px"><div class="stone stone-${number}"></div></div>';
+const jstpl_piece = '<div ' +
+    'id="${board_number}_square_${row}_${col}" ' +
+    'class="square piece-${number} board-${board_number} board-${color}" '+
+    'style="top:${top}px; left:${left}px"' +
+    '></div>';
 </script>
 
 
 <!-- BOARDS -->
 <div id="boards">
-    <div id="board_1" class="board board-dark"></div>
-    <div id="board_2" class="board board-light"></div>
-    <div id="board_3" class="board board-dark"></div>
-    <div id="board_4" class="board board-light"></div>
+    <div id="stones"></div>
+    <div id="squares"></div>
 </div>
 
 {OVERALL_GAME_FOOTER}
