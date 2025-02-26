@@ -51,11 +51,34 @@ function (dojo, declare) {
 			console.info('These are our stones');
 			console.info(gamedatas.stones);
 
-			const stone_id_format = (player, id) => `stone${id}`;
-			const square_id_format = (board, id) => `square${id}`;
+            /**
+             * Format the stone ID for the HTML element.
+             *
+             * @param player string The player number that will be added to the element Class.
+             * @param id string The stone number that will be added to the element ID.
+             * @returns {`stone${string}`}
+             */
+            const stone_id_format = (player, id) => `stone${id}`;
+
+            /**
+             * Format the square ID for the HTML element.
+             *
+             * @param board
+             * @param id
+             * @returns {`square${string}`}
+             */
+            const square_id_format = (board, id) => `square${id}`;
 
 			// RENDER SQUARES
-			const renderBoardSquares = ( board, top, left, offset = 0 ) => {
+            /**
+             * Render the squares for a board. This will render 16 squares in a 4x4 grid.
+             *
+             * @param board string The board number that will be added to the element ID.
+             * @param top int The absolute top position of the board.
+             * @param left int The absolute left position of the board.
+             * @param offset int The offset to start the square numbering. This is required because we have 64 squares, but always render 16 at a time.
+             */
+            const renderBoardSquares = ( board, top, left, offset = 0 ) => {
 					let row = 0;
 					let col = 0;
 					let html = '';
@@ -73,19 +96,42 @@ function (dojo, declare) {
 					document.getElementById('squares').innerHTML += html;
 			}
 
+            // Render the four boards with their absolute position and square count offset.
 			renderBoardSquares(1, 0, 0);
 			renderBoardSquares(2, 0, 365 + 20, 16);
 			renderBoardSquares(3, 365 + 20, 0, 32);
 			renderBoardSquares(4, 365 + 20, 365 + 20, 48);
 
 			// RENDER STONES
-
-			const moveStone = async ( stone_id, square_id ) => {
+            /**
+             * Animate a ElementbyID to a target ElementbyID. In this case the stone to a square.
+             *
+             * @param stone_id String
+             * @param square_id String
+             */
+            const moveStone = async ( stone_id, square_id ) => {
 				console.log('Animating piece: ',stone_id, ' to ', square_id);
 				const anim = this.slideToObject( stone_id, square_id );
-				await this.bgaPlayDojoAnimation(anim);
+				return await this.bgaPlayDojoAnimation(anim);
 			}
 
+            /**
+             * Add Object Typing for Stone for IDE autocompletion.
+             * @type {{board: string, player: string, id: string, square: string}} StoneType
+             */
+            const StoneType = {
+                "board": '',
+                'player': '',
+                'id': '',
+                'square': ''
+            }
+
+            /**
+             * Add a stone to the board and then move it to it's assigned square.
+             *
+             * @param {StoneType} stone
+             * @returns {string}
+             */
 			const addStoneToBoard = ( stone ) =>{
 				// Generate HTML
 				let stone_id = stone_id_format(stone.board, stone.id);
@@ -98,7 +144,10 @@ function (dojo, declare) {
 				return stone_id;
 			}
 
-			// Convert object list to array
+			// Convert object list to array so it's iterable.
+            /**
+             * @type {StoneType[]}
+             */
 			let stones = Object.values(gamedatas.stones);
 			console.log('Stones', stones);
 
