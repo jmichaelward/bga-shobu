@@ -43,7 +43,7 @@ class Game extends \Table
             "my_second_global_variable" => 11,
             "my_first_game_variant" => 100,
             "my_second_game_variant" => 101,
-        ]);        
+        ]);
 
         self::$CARD_TYPES = [
             1 => [
@@ -152,11 +152,11 @@ class Game extends \Table
 
         // Give some extra time to the active player when he completed an action
         $this->giveExtraTime($player_id);
-        
+
         $this->activeNextPlayer();
 
         // Go to another gamestate
-        // Here, we would detect if the game is over, and in this case use "endGame" transition instead 
+        // Here, we would detect if the game is over, and in this case use "endGame" transition instead
         $this->gamestate->nextState("nextPlayer");
     }
 
@@ -209,6 +209,10 @@ class Game extends \Table
         // NOTE: you can retrieve some extra field you added for "player" table in `dbmodel.sql` if you need it.
         $result["players"] = $this->getCollectionFromDb(
             "SELECT player_id, player_score score FROM player"
+        );
+
+        $result['stones'] = $this->getCollectionFromDb(
+          "SELECT * FROM stones"
         );
 
         // TODO: Gather all information about current game situation (visible by player $current_player_id).

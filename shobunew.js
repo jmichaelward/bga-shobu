@@ -41,15 +41,16 @@ function (dojo, declare) {
             _ when the game starts
             _ when a player refreshes the game page (F5)
 
+
             "gamedatas" argument contains all datas retrieved by your "getAllDatas" PHP method.
         */
 
         setup: function( gamedatas )
         {
             console.log( "Starting game setup" );
+			console.info('These are our stones');
+			console.info(gamedatas.stones);
 
-			const boards = 4;
-			const boardGrid = 16;
 			const defaultBoardState = [
 				1,1,1,1,
 				0,0,0,0,
@@ -113,6 +114,7 @@ function (dojo, declare) {
 
 			console.log('Render boards');
 			let offset = 365 + 20;
+
 			renderSquares('board_1', board1State, 1);
 			renderSquares('board_2', board2State, 2, 0, offset );
 			renderSquares('board_3', board3State, 3, offset, 0 );
