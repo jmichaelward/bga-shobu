@@ -280,44 +280,62 @@ class Game extends \Table
         // $this->initStat("player", "player_teststat1", 0);
 
         // TODO: Setup the initial game situation here.
-        $sql = "INSERT INTO stones (`player`, `board`, `square`) VALUES ";
+        $sql = "INSERT INTO stones (`player`, `square`) VALUES ";
 
         $stonesSetup = [
-          // Player One
-          [1, 1, 13],
-          [1, 1, 14],
-          [1, 1, 15],
-          [1, 1, 16],
-          [1, 2, 13],
-          [1, 2, 14],
-          [1, 2, 15],
-          [1, 2, 16],
-          [1, 3, 13],
-          [1, 3, 14],
-          [1, 3, 15],
-          [1, 3, 16],
-          [1, 4, 13],
-          [1, 4, 14],
-          [1, 4, 15],
-          [1, 4, 16],
+		// Player One.
+		// Board 1 (top left)
+          [1, 1],
+          [1, 2],
+          [1, 3],
+          [1, 4],
+		// Board 2 (top right)
+          [1, 17],
+          [1, 18],
+          [1, 19],
+          [1, 20],
 
-          // Player Two
-          [2, 1, 1],
-          [2, 1, 2],
-          [2, 1, 3],
-          [2, 1, 4],
-          [2, 2, 1],
-          [2, 2, 2],
-          [2, 2, 3],
-          [2, 2, 4],
-          [2, 3, 1],
-          [2, 3, 2],
-          [2, 3, 3],
-          [2, 3, 4],
-          [2, 4, 1],
-          [2, 4, 2],
-          [2, 4, 3],
-          [2, 4, 4],
+		// Board 3 (bottom left)
+		  [1, 33],
+		  [1, 34],
+		  [1, 35],
+		  [1, 36],
+
+		// Board 4 (bottom right)
+          [1, 33],
+		  [1, 34],
+		  [1, 35],
+		  [1, 36],
+
+		  [1, 49],
+		  [1, 50],
+		  [1, 51],
+		  [1, 52],
+
+          // Player Two.
+          // Board 1 (top left)
+		  [2, 13],
+          [2, 14],
+          [2, 15],
+          [2, 16],
+
+		// Board 2 (top right)
+		  [2, 29],
+		  [2, 30],
+		  [2, 31],
+		  [2, 32],
+
+		  // Board 3 (bottom left)
+		  [2, 45],
+		  [2, 46],
+		  [2, 47],
+		  [2, 48],
+
+		// Board 4 (bottom right)
+		  [2, 61],
+		  [2, 62],
+		  [2, 63],
+		  [2, 64],
         ];
 
         $insertValues = [];
