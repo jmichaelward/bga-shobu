@@ -95,7 +95,7 @@ function (dojo, declare) {
 					}
 					document.getElementById('squares').innerHTML += html;
 			}
-
+            // TODO: IF player 2, we need to flip the board, so the squares are rendered in reverse order.
             // Render the four boards with their absolute position and square count offset.
 			renderBoardSquares(1, 0, 0);
 			renderBoardSquares(2, 0, 365 + 20, 16);
