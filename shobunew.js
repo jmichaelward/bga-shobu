@@ -51,97 +51,60 @@ function (dojo, declare) {
 			console.info('These are our stones');
 			console.info(gamedatas.stones);
 
-			const defaultBoardState = [
-				1,1,1,1,
-				0,0,0,0,
-				0,0,0,0,
-				2,2,2,2,
-			];
-			const board1State = defaultBoardState.slice();
-			const board2State = defaultBoardState.slice();
-			const board3State = defaultBoardState.slice();
-			const board4State = defaultBoardState.slice();
+			const stone_id_format = (player, id) => `stone${id}`;
+			const square_id_format = (board, id) => `square${id}`;
 
-			const renderSquares = (board, boardState, board_number, top = 0, left = 0) => {
-
-				let html = '';
-
-				boardState.forEach((value, index) => {
-					let row = Math.floor(index / 4);
-					let col = index % 4;
-
-					html += this.format_block('jstpl_piece', {
-						'number': value,
-						'col': col + 1,
-						'row': row + 1,
-						'top': (91.25 * row) + top,
-						'left': 91.25 * col + left,
-						'board_number': board,
-						'color' : board_number % 2 ? 'dark' : 'light',
-					});
-				});
-
-				document.getElementById('squares').innerHTML += html;
+			// RENDER SQUARES
+			const renderBoardSquares = ( board, top, left, offset = 0 ) => {
+					let row = 0;
+					let col = 0;
+					let html = '';
+					let color = board % 2 ? 'dark' : 'light';
+					let number = 0;
+					for(let i = 0 + offset; i < 16 + offset; i++) {
+						row = Math.floor((i - offset) / 4);
+						col = (i - offset) % 4;
+						number = i + 1;
+						let top_tpl = (91.25 * row) + top;
+						let left_tpl = (91.25 * col) + left;
+						let square_id = square_id_format(board, number);
+						html += `<div id="${square_id}" class="square piece-${number} board-${board} board-${color}" style="top:${top_tpl}px; left:${left_tpl}px"></div>`;
+					}
+					document.getElementById('squares').innerHTML += html;
 			}
 
-			const moveStone = async ( board, row, col, player, number ) => {
-				let square_id = `${board}_square_r${row}_c${col}`;
-				let stone_id = `${board}_stone_n${number}_p${player}`;
+			renderBoardSquares(1, 0, 0);
+			renderBoardSquares(2, 0, 365 + 20, 16);
+			renderBoardSquares(3, 365 + 20, 0, 32);
+			renderBoardSquares(4, 365 + 20, 365 + 20, 48);
+
+			// RENDER STONES
+
+			const moveStone = async ( stone_id, square_id ) => {
 				console.log('Animating piece: ',stone_id, ' to ', square_id);
 				const anim = this.slideToObject( stone_id, square_id );
 				await this.bgaPlayDojoAnimation(anim);
 			}
 
-			const addPieceToBoard = ( board, row, col, player, number ) =>{
-				let stone_id = `${board}_stone_n${number}_p${player}`;
-				document.getElementById('stones').insertAdjacentHTML('beforeend', `<div id="${stone_id}" class="stone stone-${player}"></div>`);
-				this.placeOnObject( stone_id, 'overall_player_board_'+this.player_id );
-				moveStone( board, row, col, player, number ).then(() => {});
+			const addStoneToBoard = ( stone ) =>{
+				// Generate HTML
+				let stone_id = stone_id_format(stone.board, stone.id);
+				let square_id = square_id_format(stone.board, stone.square);
+				document.getElementById('stones').insertAdjacentHTML('beforeend', `<div id="${stone_id}" class="stone stone-${stone.player}"></div>`);
+				this.placeOnObject(stone_id, 'overall_player_board_' + this.player_id);
+
+				// Move stone to square
+				moveStone( stone_id, square_id ).then(() => {});
 				return stone_id;
 			}
-			const renderStones = (board, boardState) => {
-				let ids = [];
 
-				boardState.forEach((player, index) => {
-					let row = Math.floor(index / 4);
-					let col = index % 4;
-					let player_number = 0;
-					if(player === 0) return;
-					addPieceToBoard(board, row + 1, col +1, player, index + 1);
-				});
-			}
+			// Convert object list to array
+			let stones = Object.values(gamedatas.stones);
+			console.log('Stones', stones);
 
-
-			console.log('Render boards');
-			let offset = 365 + 20;
-
-			renderSquares('board_1', board1State, 1);
-			renderSquares('board_2', board2State, 2, 0, offset );
-			renderSquares('board_3', board3State, 3, offset, 0 );
-			renderSquares('board_4', board4State, 4, offset, offset );
-
-			console.log('Render pieces');
-			renderStones('board_1', board1State);
-			renderStones('board_2', board2State);
-			renderStones('board_3', board3State);
-			renderStones('board_4', board4State);
-
-
-
-            // Setting up player boards
-            // Object.values(gamedatas.players).forEach(player => {
-            //     // TODO: Setting up players boards if needed
-			//
-            //     // example of adding a div for each player
-            //     document.getElementById('player-tables').insertAdjacentHTML('beforeend', `
-            //         <div id="player-table-${player.id}">
-            //             <strong>${player.name}</strong>
-            //
-            //         </div>
-            //     `);
-            // });
-
-            // TODO: Set up your game interface here, according to "gamedatas"
+			stones.forEach(stone => {
+				addStoneToBoard( stone );
+			});
 
 
             // Setup game notifications to handle (see "setupNotifications" method below)
@@ -240,6 +203,7 @@ function (dojo, declare) {
             script.
 
         */
+
 
 
         ///////////////////////////////////////////////////
