@@ -1,4 +1,5 @@
 <?php
+
 /**
  *------
  * BGA framework: Gregory Isabelli & Emmanuel Colin & BoardGameArena
@@ -67,7 +68,7 @@ class Game extends \Table
     public function actPlayCard(int $card_id): void
     {
         // Retrieve the active player ID.
-        $player_id = (int)$this->getActivePlayerId();
+        $player_id = (int) $this->getActivePlayerId();
 
         // check input values
         $args = $this->argPlayerTurn();
@@ -95,7 +96,7 @@ class Game extends \Table
     public function actPass(): void
     {
         // Retrieve the active player ID.
-        $player_id = (int)$this->getActivePlayerId();
+        $player_id = (int) $this->getActivePlayerId();
 
         // Notify all players about the choice to pass.
         $this->notifyAllPlayers("cardPlayed", clienttranslate('${player_name} passes'), [
@@ -146,9 +147,10 @@ class Game extends \Table
      *
      * The action method of state `nextPlayer` is called everytime the current game state is set to `nextPlayer`.
      */
-    public function stNextPlayer(): void {
+    public function stNextPlayer(): void
+    {
         // Retrieve the active player ID.
-        $player_id = (int)$this->getActivePlayerId();
+        $player_id = (int) $this->getActivePlayerId();
 
         // Give some extra time to the active player when he completed an action
         $this->giveExtraTime($player_id);
@@ -212,7 +214,7 @@ class Game extends \Table
         );
 
         $result['stones'] = $this->getCollectionFromDb(
-          "SELECT * FROM stones"
+            "SELECT * FROM stones"
         );
 
         // TODO: Gather all information about current game situation (visible by player $current_player_id).
@@ -283,65 +285,65 @@ class Game extends \Table
         $sql = "INSERT INTO stones (`player`, `square`) VALUES ";
 
         $stonesSetup = [
-		// Player One.
-		// Board 1 (top left)
-          [1, 1],
-          [1, 2],
-          [1, 3],
-          [1, 4],
-		// Board 2 (top right)
-          [1, 17],
-          [1, 18],
-          [1, 19],
-          [1, 20],
+            // Player One.
+            // Board 1 (top left)
+            [1, 1],
+            [1, 2],
+            [1, 3],
+            [1, 4],
+            // Board 2 (top right)
+            [1, 17],
+            [1, 18],
+            [1, 19],
+            [1, 20],
 
-		// Board 3 (bottom left)
-		  [1, 33],
-		  [1, 34],
-		  [1, 35],
-		  [1, 36],
+            // Board 3 (bottom left)
+            [1, 33],
+            [1, 34],
+            [1, 35],
+            [1, 36],
 
-		// Board 4 (bottom right)
-          [1, 33],
-		  [1, 34],
-		  [1, 35],
-		  [1, 36],
+            // Board 4 (bottom right)
+            [1, 33],
+            [1, 34],
+            [1, 35],
+            [1, 36],
 
-		  [1, 49],
-		  [1, 50],
-		  [1, 51],
-		  [1, 52],
+            [1, 49],
+            [1, 50],
+            [1, 51],
+            [1, 52],
 
-          // Player Two.
-          // Board 1 (top left)
-		  [2, 13],
-          [2, 14],
-          [2, 15],
-          [2, 16],
+            // Player Two.
+            // Board 1 (top left)
+            [2, 13],
+            [2, 14],
+            [2, 15],
+            [2, 16],
 
-		// Board 2 (top right)
-		  [2, 29],
-		  [2, 30],
-		  [2, 31],
-		  [2, 32],
+            // Board 2 (top right)
+            [2, 29],
+            [2, 30],
+            [2, 31],
+            [2, 32],
 
-		  // Board 3 (bottom left)
-		  [2, 45],
-		  [2, 46],
-		  [2, 47],
-		  [2, 48],
+            // Board 3 (bottom left)
+            [2, 45],
+            [2, 46],
+            [2, 47],
+            [2, 48],
 
-		// Board 4 (bottom right)
-		  [2, 61],
-		  [2, 62],
-		  [2, 63],
-		  [2, 64],
+            // Board 4 (bottom right)
+            [2, 61],
+            [2, 62],
+            [2, 63],
+            [2, 64],
         ];
 
         $insertValues = [];
 
         foreach ($stonesSetup as $stone) {
-          $insertValues[] = "({$stone[0]}, {$stone[1]}, {$stone[2]})";
+            $insertValues[] = "({$stone[0]}, {$stone[1]}, {$stone[2]})";
         }
 
         $sql .= implode(',', $insertValues);
