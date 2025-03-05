@@ -36,7 +36,6 @@
 CREATE TABLE IF NOT EXISTS `stones` (
     `id` INT unsigned NOT NULL AUTO_INCREMENT,
     `player` INT unsigned NOT NULL,
-    `board` INT unsigned NOT NULL,
     `square` INT unsigned NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;

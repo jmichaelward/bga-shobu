@@ -34,8 +34,8 @@
 var jstpl_some_game_item='<div class="my_game_item" id="my_game_item_${MY_ITEM_ID}"></div>';
 
 */
-const jstpl_piece = '<div ' +
-    'id="${board_number}_square_r${row}_c${col}" ' +
+const jstpl_square = '<div ' +
+    'id="board${board_number}_square${number}" ' +
     'class="square piece-${number} board-${board_number} board-${color}" '+
     'style="top:${top}px; left:${left}px"' +
     '></div>';
